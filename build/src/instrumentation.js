@@ -84,7 +84,7 @@ class UserInteractionInstrumentation extends instrumentation_1.InstrumentationBa
      * @param eventName
      */
     _createSpan(element, eventName, parentSpan) {
-        var _a;
+        var _a, _b, _c, _d;
         if (!(element instanceof HTMLElement)) {
             return undefined;
         }
@@ -100,9 +100,9 @@ class UserInteractionInstrumentation extends instrumentation_1.InstrumentationBa
         const xpath = sdk_trace_web_1.getElementXPath(element, true);
         try {
             const data = JSON.stringify({
-                id: element.getAttribute('id') || element.getAttribute('data-opentelemtry-id'),
-                content: element.textContent || ((_a = element.parentElement) === null || _a === void 0 ? void 0 : _a.textContent) || element.getAttribute('data-opentelemtry-desc'),
-                intent: element.getAttribute('data-opentelemtry-intent'),
+                id: element.getAttribute('id') || element.getAttribute('data-opentelemtry-id') || ((_a = element.parentElement) === null || _a === void 0 ? void 0 : _a.getAttribute('data-opentelemtry-id')),
+                content: element.textContent || ((_b = element.parentElement) === null || _b === void 0 ? void 0 : _b.textContent) || element.getAttribute('data-opentelemtry-desc') || ((_c = element.parentElement) === null || _c === void 0 ? void 0 : _c.getAttribute('data-opentelemtry-desc')),
+                intent: element.getAttribute('data-opentelemtry-intent') || ((_d = element.parentElement) === null || _d === void 0 ? void 0 : _d.getAttribute('data-opentelemtry-intent')),
             });
             const span = this.tracer.startSpan(eventName, {
                 attributes: {
