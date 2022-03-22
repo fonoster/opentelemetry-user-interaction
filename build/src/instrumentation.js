@@ -84,6 +84,7 @@ class UserInteractionInstrumentation extends instrumentation_1.InstrumentationBa
      * @param eventName
      */
     _createSpan(element, eventName, parentSpan) {
+        var _a;
         if (!(element instanceof HTMLElement)) {
             return undefined;
         }
@@ -98,9 +99,18 @@ class UserInteractionInstrumentation extends instrumentation_1.InstrumentationBa
         }
         const xpath = sdk_trace_web_1.getElementXPath(element, true);
         try {
+            const description = [
+                element.textContent,
+                element.getAttribute('id'),
+                element.getAttribute('data-opentelemtry-desc'),
+                element.getAttribute('data-opentelemtry-id'),
+                (_a = element.parentElement) === null || _a === void 0 ? void 0 : _a.textContent
+            ]
+                .filter(v => v)
+                .join(', ');
             const span = this.tracer.startSpan(eventName, {
                 attributes: {
-                    [AttributeNames_1.AttributeNames.COMPONENT]: this.component,
+                    [AttributeNames_1.AttributeNames.DESCRIPTION]: description,
                     [AttributeNames_1.AttributeNames.EVENT_TYPE]: eventName,
                     [AttributeNames_1.AttributeNames.TARGET_ELEMENT]: element.tagName,
                     [AttributeNames_1.AttributeNames.TARGET_XPATH]: xpath,

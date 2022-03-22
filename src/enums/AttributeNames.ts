@@ -22,4 +22,5 @@ export enum AttributeNames {
   HTTP_URL = 'http.url',
   // NOT ON OFFICIAL SPEC
   HTTP_USER_AGENT = 'http.user_agent',
+  DESCRIPTION = 'description',
 }

@@ -99,6 +99,7 @@ var UserInteractionInstrumentation = /** @class */ (function (_super) {
      */
     UserInteractionInstrumentation.prototype._createSpan = function (element, eventName, parentSpan) {
         var _a;
+        var _b;
         if (!(element instanceof HTMLElement)) {
             return undefined;
         }
@@ -113,9 +114,18 @@ var UserInteractionInstrumentation = /** @class */ (function (_super) {
         }
         var xpath = getElementXPath(element, true);
         try {
+            var description = [
+                element.textContent,
+                element.getAttribute('id'),
+                element.getAttribute('data-opentelemtry-desc'),
+                element.getAttribute('data-opentelemtry-id'),
+                (_b = element.parentElement) === null || _b === void 0 ? void 0 : _b.textContent
+            ]
+                .filter(function (v) { return v; })
+                .join(', ');
             var span = this.tracer.startSpan(eventName, {
                 attributes: (_a = {},
-                    _a[AttributeNames.COMPONENT] = this.component,
+                    _a[AttributeNames.DESCRIPTION] = description,
                     _a[AttributeNames.EVENT_TYPE] = eventName,
                     _a[AttributeNames.TARGET_ELEMENT] = element.tagName,
                     _a[AttributeNames.TARGET_XPATH] = xpath,

@@ -22,5 +22,6 @@ export var AttributeNames;
     AttributeNames["HTTP_URL"] = "http.url";
     // NOT ON OFFICIAL SPEC
     AttributeNames["HTTP_USER_AGENT"] = "http.user_agent";
+    AttributeNames["DESCRIPTION"] = "description";
 })(AttributeNames || (AttributeNames = {}));
 //# sourceMappingURL=AttributeNames.js.map

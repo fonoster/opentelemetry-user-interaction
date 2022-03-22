@@ -127,13 +127,25 @@ export class UserInteractionInstrumentation extends InstrumentationBase<unknown>
     if (!this._allowEventName(eventName)) {
       return undefined;
     }
+
     const xpath = getElementXPath(element, true);
+
     try {
+      const description = [
+        element.textContent,
+        element.getAttribute('id'),
+        element.getAttribute('data-opentelemtry-desc'),
+        element.getAttribute('data-opentelemtry-id'),
+        element.parentElement?.textContent
+      ]
+        .filter(v => v)
+        .join(', ');
+
       const span = this.tracer.startSpan(
         eventName,
         {
           attributes: {
-            [AttributeNames.COMPONENT]: this.component,
+            [AttributeNames.DESCRIPTION]: description,
             [AttributeNames.EVENT_TYPE]: eventName,
             [AttributeNames.TARGET_ELEMENT]: element.tagName,
             [AttributeNames.TARGET_XPATH]: xpath,
