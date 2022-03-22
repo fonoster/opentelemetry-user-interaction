@@ -99,18 +99,14 @@ class UserInteractionInstrumentation extends instrumentation_1.InstrumentationBa
         }
         const xpath = sdk_trace_web_1.getElementXPath(element, true);
         try {
-            const description = [
-                element.textContent,
-                element.getAttribute('id'),
-                element.getAttribute('data-opentelemtry-desc'),
-                element.getAttribute('data-opentelemtry-id'),
-                (_a = element.parentElement) === null || _a === void 0 ? void 0 : _a.textContent
-            ]
-                .filter(v => v)
-                .join(', ');
+            const data = JSON.stringify({
+                id: element.getAttribute('id') || element.getAttribute('data-opentelemtry-id'),
+                content: element.textContent || ((_a = element.parentElement) === null || _a === void 0 ? void 0 : _a.textContent) || element.getAttribute('data-opentelemtry-desc'),
+                intent: element.getAttribute('data-opentelemtry-intent'),
+            });
             const span = this.tracer.startSpan(eventName, {
                 attributes: {
-                    [AttributeNames_1.AttributeNames.DESCRIPTION]: description,
+                    [AttributeNames_1.AttributeNames.DATA]: data,
                     [AttributeNames_1.AttributeNames.EVENT_TYPE]: eventName,
                     [AttributeNames_1.AttributeNames.TARGET_ELEMENT]: element.tagName,
                     [AttributeNames_1.AttributeNames.TARGET_XPATH]: xpath,

@@ -5,6 +5,6 @@ export declare enum AttributeNames {
     TARGET_XPATH = "target_xpath",
     HTTP_URL = "http.url",
     HTTP_USER_AGENT = "http.user_agent",
-    DESCRIPTION = "description"
+    DATA = "data"
 }
 //# sourceMappingURL=AttributeNames.d.ts.map

@@ -114,18 +114,14 @@ var UserInteractionInstrumentation = /** @class */ (function (_super) {
         }
         var xpath = getElementXPath(element, true);
         try {
-            var description = [
-                element.textContent,
-                element.getAttribute('id'),
-                element.getAttribute('data-opentelemtry-desc'),
-                element.getAttribute('data-opentelemtry-id'),
-                (_b = element.parentElement) === null || _b === void 0 ? void 0 : _b.textContent
-            ]
-                .filter(function (v) { return v; })
-                .join(', ');
+            var data = JSON.stringify({
+                id: element.getAttribute('id') || element.getAttribute('data-opentelemtry-id'),
+                content: element.textContent || ((_b = element.parentElement) === null || _b === void 0 ? void 0 : _b.textContent) || element.getAttribute('data-opentelemtry-desc'),
+                intent: element.getAttribute('data-opentelemtry-intent'),
+            });
             var span = this.tracer.startSpan(eventName, {
                 attributes: (_a = {},
-                    _a[AttributeNames.DESCRIPTION] = description,
+                    _a[AttributeNames.DATA] = data,
                     _a[AttributeNames.EVENT_TYPE] = eventName,
                     _a[AttributeNames.TARGET_ELEMENT] = element.tagName,
                     _a[AttributeNames.TARGET_XPATH] = xpath,
