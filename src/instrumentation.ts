@@ -131,18 +131,14 @@ export class UserInteractionInstrumentation extends InstrumentationBase<unknown>
     const xpath = getElementXPath(element, true);
 
     try {
-      const data = JSON.stringify({
-        id: element.getAttribute('id') || element.getAttribute('data-id') || element.parentElement?.getAttribute('data-id'),
-        elementText: element.textContent || element.parentElement?.textContent,
-        description: element.getAttribute('data-desc') || element.parentElement?.getAttribute('data-desc'),
-        actionIntent: element.getAttribute('data-intent') || element.parentElement?.getAttribute('data-intent'),
-      });
-
       const span = this.tracer.startSpan(
         eventName,
         {
           attributes: {
-            [AttributeNames.DATA]: data,
+            id: element.getAttribute('id') || element.getAttribute('data-id') || element.parentElement?.getAttribute('data-id') || '',
+            elementText: element.textContent || element.parentElement?.textContent || '',
+            description: element.getAttribute('data-desc') || element.parentElement?.getAttribute('data-desc') || '',
+            actionIntent: element.getAttribute('data-intent') || element.parentElement?.getAttribute('data-intent') || '',
             [AttributeNames.EVENT_TYPE]: eventName,
             [AttributeNames.TARGET_ELEMENT]: element.tagName,
             [AttributeNames.TARGET_XPATH]: xpath,

@@ -99,15 +99,12 @@ class UserInteractionInstrumentation extends instrumentation_1.InstrumentationBa
         }
         const xpath = sdk_trace_web_1.getElementXPath(element, true);
         try {
-            const data = JSON.stringify({
-                id: element.getAttribute('id') || element.getAttribute('data-id') || ((_a = element.parentElement) === null || _a === void 0 ? void 0 : _a.getAttribute('data-id')),
-                elementText: element.textContent || ((_b = element.parentElement) === null || _b === void 0 ? void 0 : _b.textContent),
-                description: element.getAttribute('data-desc') || ((_c = element.parentElement) === null || _c === void 0 ? void 0 : _c.getAttribute('data-desc')),
-                actionIntent: element.getAttribute('data-intent') || ((_d = element.parentElement) === null || _d === void 0 ? void 0 : _d.getAttribute('data-intent')),
-            });
             const span = this.tracer.startSpan(eventName, {
                 attributes: {
-                    [AttributeNames_1.AttributeNames.DATA]: data,
+                    id: element.getAttribute('id') || element.getAttribute('data-id') || ((_a = element.parentElement) === null || _a === void 0 ? void 0 : _a.getAttribute('data-id')) || '',
+                    elementText: element.textContent || ((_b = element.parentElement) === null || _b === void 0 ? void 0 : _b.textContent) || '',
+                    description: element.getAttribute('data-desc') || ((_c = element.parentElement) === null || _c === void 0 ? void 0 : _c.getAttribute('data-desc')) || '',
+                    actionIntent: element.getAttribute('data-intent') || ((_d = element.parentElement) === null || _d === void 0 ? void 0 : _d.getAttribute('data-intent')) || '',
                     [AttributeNames_1.AttributeNames.EVENT_TYPE]: eventName,
                     [AttributeNames_1.AttributeNames.TARGET_ELEMENT]: element.tagName,
                     [AttributeNames_1.AttributeNames.TARGET_XPATH]: xpath,

@@ -114,15 +114,13 @@ var UserInteractionInstrumentation = /** @class */ (function (_super) {
         }
         var xpath = getElementXPath(element, true);
         try {
-            var data = JSON.stringify({
-                id: element.getAttribute('id') || element.getAttribute('data-id') || ((_b = element.parentElement) === null || _b === void 0 ? void 0 : _b.getAttribute('data-id')),
-                elementText: element.textContent || ((_c = element.parentElement) === null || _c === void 0 ? void 0 : _c.textContent),
-                description: element.getAttribute('data-desc') || ((_d = element.parentElement) === null || _d === void 0 ? void 0 : _d.getAttribute('data-desc')),
-                actionIntent: element.getAttribute('data-intent') || ((_e = element.parentElement) === null || _e === void 0 ? void 0 : _e.getAttribute('data-intent')),
-            });
             var span = this.tracer.startSpan(eventName, {
-                attributes: (_a = {},
-                    _a[AttributeNames.DATA] = data,
+                attributes: (_a = {
+                        id: element.getAttribute('id') || element.getAttribute('data-id') || ((_b = element.parentElement) === null || _b === void 0 ? void 0 : _b.getAttribute('data-id')) || '',
+                        elementText: element.textContent || ((_c = element.parentElement) === null || _c === void 0 ? void 0 : _c.textContent) || '',
+                        description: element.getAttribute('data-desc') || ((_d = element.parentElement) === null || _d === void 0 ? void 0 : _d.getAttribute('data-desc')) || '',
+                        actionIntent: element.getAttribute('data-intent') || ((_e = element.parentElement) === null || _e === void 0 ? void 0 : _e.getAttribute('data-intent')) || ''
+                    },
                     _a[AttributeNames.EVENT_TYPE] = eventName,
                     _a[AttributeNames.TARGET_ELEMENT] = element.tagName,
                     _a[AttributeNames.TARGET_XPATH] = xpath,
