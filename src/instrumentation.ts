@@ -30,7 +30,8 @@ import {
   WindowWithZone,
   ZoneTypeWithPrototype,
 } from './types';
-import { VERSION } from './version';
+
+const VERSION = "0.1.1";
 
 const ZONE_CONTEXT_KEY = 'OT_ZONE_CONTEXT';
 const EVENT_NAVIGATION_NAME = 'Navigation:';
