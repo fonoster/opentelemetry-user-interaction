@@ -132,9 +132,10 @@ export class UserInteractionInstrumentation extends InstrumentationBase<unknown>
 
     try {
       const data = JSON.stringify({
-        id: element.getAttribute('id') || element.getAttribute('data-opentelemtry-id') || element.parentElement?.getAttribute('data-opentelemtry-id'),
-        content: element.textContent || element.parentElement?.textContent || element.getAttribute('data-opentelemtry-desc') || element.parentElement?.getAttribute('data-opentelemtry-desc'),
-        intent: element.getAttribute('data-opentelemtry-intent') || element.parentElement?.getAttribute('data-opentelemtry-intent'),
+        id: element.getAttribute('id') || element.getAttribute('data-id') || element.parentElement?.getAttribute('data-id'),
+        elementText: element.textContent || element.parentElement?.textContent,
+        description: element.getAttribute('data-desc') || element.parentElement?.getAttribute('data-desc'),
+        actionIntent: element.getAttribute('data-intent') || element.parentElement?.getAttribute('data-intent'),
       });
 
       const span = this.tracer.startSpan(
